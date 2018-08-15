@@ -160,7 +160,7 @@ $(document).ready(function (){
             var track = new Track({
                 viewModel: {
                     view: view,
-                    scale: 100000
+                    scale: 5000
                 }
             });
 
