@@ -205,14 +205,10 @@ $(document).ready(function (){
             graphic = new Graphic({
                 geometry: point,
                 symbol:{
-                    type: "simple-marker",
-                    style: "point",
-                    color: [0, 191, 255],
-                    size: "12px",
-                    outline: {
-                        color: [0,0,0],
-                        width: 1
-                    }
+                    type: "picture-marker",
+                    url: "img/collide.png",
+                    width: 45,
+                    height: 45
                 }
             });
 
@@ -223,11 +219,12 @@ $(document).ready(function (){
                 var locations = json.locations[0].results[0];
                 var route = locations.routeId;
                 var measure = locations.measure;
+                var roundedMilepoint = Math.round(measure * 1000)/1000;
                 var rounded = Math.round(measure * 10)/ 10;
                 $("#route").text(route);
-                $("#milepoint").text(measure);
+                $("#milepoint").text(roundedMilepoint);
                 $("#milepost").text(rounded);
-                showPopup(lat, long, route, rounded, measure);
+                showPopup(lat, long, route, rounded, measure, point);
             });
 
 
@@ -236,11 +233,11 @@ $(document).ready(function (){
         }
 
         //Create a popup window
-        function showPopup(lat, long, route, rounded, measure){
+        function showPopup(lat, long, route, rounded, measure, point){
             view.popup.open({
                 title: "Selected route is: " + route,
                 content: "Milepoint is " +measure+". Milepost is "+rounded+". Lat/Long is " +lat+","+long+".",
-                location: graphic
+                location: point
             });
         }
 
