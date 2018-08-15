@@ -224,7 +224,7 @@ $(document).ready(function (){
                 $("#route").text(route);
                 $("#milepoint").text(roundedMilepoint);
                 $("#milepost").text(rounded);
-                showPopup(lat, long, route, rounded, measure, point);
+                showPopup(lat, long, route, rounded, roundedMilepoint, point);
             });
 
 
@@ -236,7 +236,7 @@ $(document).ready(function (){
         function showPopup(lat, long, route, rounded, measure, point){
             view.popup.open({
                 title: "Selected route is: " + route,
-                content: "Milepoint is " +measure+". Milepost is "+rounded+". Lat/Long is " +lat+","+long+".",
+                content: "Milepoint is " +measure+"<br>Milepost is "+rounded+"<br>Lat/Long is " +lat+", "+long,
                 location: point
             });
         }
