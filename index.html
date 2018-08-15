@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>Project Request Form</title>
+		<title>Milepost & Milepoints</title>
 
 		<!--put your external stylesheet links here-->
 		<link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
@@ -25,7 +25,7 @@
 		<div id="wrapper">
 			<header class="bar">
 				<div class="logo"><img src="img/dotd.png"></div>
-				<div class="title1"><h2>LA DOTD Projects</h2></div>
+				<div class="title1"><h2>LA DOTD Mileposts</h2></div>
 				<div class="about"><img class="fa fa-info-circle fa-lg"></div>
 			</header>
 			<div id="viewDiv">
@@ -50,9 +50,6 @@
 						<img src="img/success.PNG" class="help">
 					</p>
 				</div>
-				<div id="line-button" class="esri-widget esri-widget--button esri-interactive" title="Draw polyline">
-					<span class="esri-icon-polyline"></span>
-				</div>
 				<div id="panel">
 					<h3 class="title">
 						Mileposts & Milepoints
@@ -61,24 +58,24 @@
 					<table class="projectTable">
 						<tbody>
 							<tr>
-								<th id="left">DOTD District:</th>
-								<td id="dotdDistrict"><input type="text" class="dotdDistrict"></td>
+								<th id="left">Route:</th>
+								<td id="route"></td>
 							</tr>
 							<tr>
-								<th id="left">Parish:</th>
-								<td id="parish"><input type="text" class="parishNum"></td>
-							</tr>
-							<tr id="ControlSection">
-								<th id="left">Control Section:</th>
-								<td id="controlsection"><input type="text" class="cs"></td>
+								<th id="left">Milepoint:</th>
+								<td id="milepoint"></td>
 							</tr>
 							<tr>
-								<th id="left">LRSID:</th>
-								<td id="lrsid"><input type="text" class="lrsID" maxlength="18"></td>
+								<th id="left">Milepost:</th>
+								<td id="milepost"></td>
 							</tr>
 							<tr>
-								<th id="left">Begin Logmile:</th>
-								<td id="beginLogmile"><input type="text" class="bL"></td>
+								<th id="left">Latitude:</th>
+								<td id="latitude"></td>
+							</tr>
+							<tr>
+								<th id="left">Longitude:</th>
+								<td id="longitude"></td>
 							</tr>
 						</tbody>
 					</table>

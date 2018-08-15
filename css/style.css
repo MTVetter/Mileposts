@@ -36,7 +36,7 @@ body{
     order: -1;
 }
 .projectTable{
-    margin-right: 50px;
+    padding-right: 300px;
 }
 #panel{
     position: relative;

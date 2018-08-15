@@ -1,6 +1,5 @@
 /* Main JavaScript sheet for Project Request Form by Michael Vetter*/
 $(document).ready(function (){
-    $("#panel").hide();
     require([
         "esri/Map",
         "esri/views/MapView",
@@ -39,8 +38,8 @@ $(document).ready(function (){
         });
     
         var homeExtent = new Extent({
-            xmin: -10251602.81762082,
-            xmax: -10304989.48107227,
+            xmin: -10201602.81762082,
+            xmax: -10224989.48107227,
             ymin: 3672629.538129259,
             ymax: 3685031.445968512,
             spatialReference: 102100
@@ -76,95 +75,11 @@ $(document).ready(function (){
             }]
         };
     
-        var routeTemplate ={
-            title: "LRSID_Route: {RouteID}",
-            content: [{
-                type: "fields",
-                fieldInfos: [{
-                    fieldName: "ControlSection",
-                    visible: true
-                },{
-                    fieldName: "InventoryDirection",
-                    visible: true
-                }, {
-                    fieldName: "ParishFIPS",
-                    visible: true
-                }, {
-                    fieldName: "DOTDDistrict",
-                    visible: true
-                }, {
-                    fieldName: "ParishNumber",
-                    visible: true
-                }, {
-                    fieldName: "FullName",
-                    visible: true
-                }]
-            }]
-        };
-
-        var projectTemplate = {
-            title: "Proposed Project",
-            content:[{
-                type: "fields",
-                fieldInfos: [{
-                    fieldName: "ControlSection",
-                    visible: true
-                },{
-                    fieldName: "LRSID",
-                    visible: true
-                },{
-                    fieldName: "BeginLogmile",
-                    visible: true
-                },{
-                    fieldName: "EndLogmile",
-                    visible: true
-                },{
-                    fieldName: "Parish",
-                    visible: true
-                },{
-                    fieldName: "DOTDDistrict",
-                    visible: true
-                },{
-                    fieldName: "UrbanizedArea",
-                    visible: true
-                }]
-            }]
-        };
-
-        var oldProjectTemplate = {
-            title: "Let Projects",
-            content:[{
-                type: "fields",
-                fieldInfos: [{
-                    fieldName: "PROJECT",
-                    visible: true
-                }, {
-                    fieldName: "DISTRICT",
-                    visible: true
-                }, {
-                    fieldName: "PARISH_NAME",
-                    visible: true
-                }, {
-                    fieldName: "URBANIZED_AREA",
-                    visible: true
-                }, {
-                    fieldName: "ROUTE",
-                    visible: true
-                }, {
-                    fieldName: "House_District",
-                    visible: true
-                }, {
-                    fieldName: "Senate_District",
-                    visible: true
-                }]
-            }]
-        };
-    
+        
         //Adding in the parish boundaries
         var parish = new FeatureLayer({
             url: "https://giswebnew.dotd.la.gov/arcgis/rest/services/Boundaries/LA_Parishes/FeatureServer/0",
             outFields: ["*"],
-            popupTemplate: parishTemplate,
             title: "Parishes"
         });
     
@@ -172,51 +87,15 @@ $(document).ready(function (){
         var routes = new FeatureLayer({
             url: "https://giswebnew.dotd.la.gov/arcgis/rest/services/Transportation/State_LRS_Route_Networks/FeatureServer/0",
             outFields: ["*"],
-            popupTemplate: routeTemplate,
             title: "LRSID_Routes",
             definitionExpression: "RouteID LIKE '%-%-1-%' OR RouteID LIKE '%-%-2-%'"
         });
 
-        //Add the editable projects layer
-        var projects = new FeatureLayer({
-            url: "https://services.arcgis.com/PLiuXYMBpMK5h36e/arcgis/rest/services/ProjectSystems/FeatureServer/0",
-            outFields: ["*"],
-            popupTemplate: projectTemplate,
-            capabilites: {
-                "supportsAdd": true
-            }
-        });
 
-        //Add the last 5 fiscal year projects
-        var lastFiveProjects = new FeatureLayer({
-            url: "https://giswebnew.dotd.la.gov/arcgis/rest/services/Static_Data/2019_Roadshow/FeatureServer/4",
-            outFields: ["PROJECT", "DISTRICT", "PARISH_NAME", "URBANIZED_AREA", "ROUTE", "House_District", "Senate_District"],
-            title: "Last Five Fiscal Year Projects",
-            popupTemplate: oldProjectTemplate
-        });
-
-        //Add last fiscal year's projects
-        var lastYearProjects = new FeatureLayer({
-            url: "https://giswebnew.dotd.la.gov/arcgis/rest/services/Static_Data/2019_Roadshow/FeatureServer/5",
-            outFields: ["PROJECT", "DISTRICT", "PARISH_NAME", "URBANIZED_AREA", "ROUTE", "House_District", "Senate_District"],
-            title: "Last Fiscal Year Projects",
-            popupTemplate: oldProjectTemplate
-        });
-
-        //Add next fiscal year's projects
-        var nextYearProjects = new FeatureLayer({
-            url: "https://giswebnew.dotd.la.gov/arcgis/rest/services/Static_Data/2019_Roadshow/FeatureServer/6",
-            outFields: ["PROJECT", "DISTRICT", "PARISH_NAME", "URBANIZED_AREA", "ROUTE", "House_District", "Senate_District"],
-            title: "Next Fiscal Year Projects",
-            popupTemplate: oldProjectTemplate
-        });
     
         map.add(parish);
         map.add(routes);
-        map.add(projects);
-        map.add(lastFiveProjects);
-        map.add(lastYearProjects);
-        map.add(nextYearProjects);
+
     
         mapSetup();
     
@@ -259,7 +138,6 @@ $(document).ready(function (){
                     searchFields: ["RouteID"],
                     outFields: ["*"],
                     name: "LRSID",
-                    popupTemplate: routeTemplate,
                     zoomScale: 80000,
                     resultSymbol: {
                         type: "simple-line",
@@ -269,44 +147,7 @@ $(document).ready(function (){
                 }, {
                     featureLayer: parish,
                     outFields: ["*"],
-                    popupTemplate: parishTemplate,
                     name: "Parish",
-                    zoomScale: 80000,
-                    resultSymbol: {
-                        type: "simple-line",
-                        color: [255, 255, 25],
-                        width: 5
-                    }
-                },{
-                    featureLayer: lastFiveProjects,
-                    displayField: "PROJECT",
-                    searchFields: ["PROJECT"],
-                    name: "Projects Let in July 2012-August 2017",
-                    popupTemplate: oldProjectTemplate,
-                    zoomScale: 80000,
-                    resultSymbol: {
-                        type: "simple-line",
-                        color: [255, 255, 25],
-                        width: 5
-                    }
-                },{
-                    featureLayer: lastYearProjects,
-                    displayField: "PROJECT",
-                    searchFields: ["PROJECT"],
-                    name: "Projects Let in September 2017-June 2018",
-                    popupTemplate: oldProjectTemplate,
-                    zoomScale: 80000,
-                    resultSymbol: {
-                        type: "simple-line",
-                        color: [255, 255, 25],
-                        width: 5
-                    }
-                }, {
-                    featureLayer: nextYearProjects,
-                    displayField: "PROJECT",
-                    searchFields: ["PROJECT"],
-                    name: "Projects Let in Fiscal Year 2018-2019",
-                    popupTemplate: oldProjectTemplate,
                     zoomScale: 80000,
                     resultSymbol: {
                         type: "simple-line",
@@ -325,135 +166,20 @@ $(document).ready(function (){
                 group: "top-left"
             });
 
-            //Query Widget
-            var query = document.getElementById("info-div");
-            queryExpand = new Expand({
-                expandIconClass: "esri-icon-filter",
-                expandTooltip: "Filter Projects",
-                expanded: false,
-                view: view,
-                content: query,
-                mode: "floating",
-                group: "top-left"
-            });
+            view.ui.add([homeButton, layerExpand, searchButton], "top-left");
 
-            view.ui.add([homeButton, layerExpand, searchButton, queryExpand], "top-left");
-
-            //Create and add the draw line button
-            view.ui.add("line-button", "top-left");
-            view.when(function(event){
-                var draw = new Draw({
-                    view: view
-                });
-                //======================
-                //Draw polyline button
-                var drawLineButton = document.getElementById("line-button");
-                drawLineButton.onclick = function(){
-                    $("#panel").show("slide");
-                    view.graphics.removeAll();
-                    enableCreateLine(draw, view);
-                }
-            });
         }
-
-        //==================================
-        //Change when filter is applied
-        $("#filterBtn").click(function(){
-            checkValues = getValues();
-            districtFilterValue = $("#districtFilter").val();
-            parishFilterValue = $("#parishFilter").val();
-            senateFilterValue = $("#senateFilter").val();
-            houseFilterValue = $("#houseFilter").val();
-            if (checkValues[0] === "district"){
-                lastFiveProjects.definitionExpression = "DISTRICT LIKE '" +districtFilterValue+ "'";
-                lastYearProjects.definitionExpression = "DISTRICT LIKE '"+districtFilterValue+ "'";
-                nextYearProjects.definitionExpression = "DISTRICT LIKE '" +districtFilterValue+ "'";
-            } else if (checkValues[0] === "parish"){
-                lastFiveProjects.definitionExpression = "PARISH LIKE '" +parishFilterValue+ "'";
-                lastYearProjects.definitionExpression = "PARISH LIKE '" +parishFilterValue+ "'";
-                nextYearProjects.definitionExpression = "PARISH LIKE '" +parishFilterValue+ "'";
-            } else if (checkValues[0] === "senateDistrict"){
-                lastFiveProjects.definitionExpression = "Senate_District LIKE '" +senateFilterValue+ "'";
-                lastYearProjects.definitionExpression = "Senate_District LIKE '" +senateFilterValue+ "'";
-                nextYearProjects.definitionExpression = "Senate_District LIKE '" +senateFilterValue+ "'";
-            } else if (checkValues[0] === "houseDistrict"){
-                lastFiveProjects.definitionExpression = "House_District LIKE '" +houseFilterValue+ "'";
-                lastYearProjects.definitionExpression = "House_District LIKE '" +houseFilterValue+ "'";
-                nextYearProjects.definitionExpression = "House_District LIKE '" +houseFilterValue+ "'";
-            }
-            queryExpand.iconNumber = 1;
-            lastFiveProjects.visible = true;
-            lastYearProjects.visible = true;
-            nextYearProjects.visible = true;
-            queryExpand.collapse();
-        });
-
-        //Remove filter when clear button is clicked
-        $("#clearFilterBtn").click(function(){
-            lastFiveProjects.definitionExpression = "";
-            lastYearProjects.definitionExpression = "";
-            nextYearProjects.definitionExpression = "";
-            queryExpand.iconNumber = 0;
-            queryExpand.collapse();
-            $("#parishFilter").val("");
-            $("#senateFilter").val("");
-            $("#houseFilter").val("");
-        });
-
-        //Determine which filter to apply
-        function getValues(){
-            var checkArray = [];
-            $(".chk:checked").each(function (){
-                checkArray.push($(this).val());
-            });
-            return checkArray;
-        };
     
         //==================================
-        //Highlight the selected feature
-        var highlighPolygon = new SimpleFillSymbol({
-            color: [0,0,0,0],
-            style: "solid",
-            outline: {
-                color: [0,255,255,1],
-                width: "1.5px"
-            }
-        });
-    
-        var highlightLine = new SimpleLineSymbol({
-            color: [0,255,255,1],
-            width: 4
-        });
-    
+        //Add graphic on map click  
         view.on("click", function(event){
             var clickPoint = {
                 x: event.x,
                 y: event.y
             };
-            view.hitTest(clickPoint).then(updateGraphics);
         });
-    
-        function updateGraphics(response){
-            view.graphics.removeAll();
-            var resultGraphic = response
-    
-            if (resultGraphic.results.length > 0){
-                var selectionGraphic = resultGraphic.results[0].graphic;
-                if (selectionGraphic.geometry.type == "polygon"){
-                    selectionGraphic.symbol = highlighPolygon;
-                } else if (selectionGraphic.geometry.type == "polyline"){
-                    selectionGraphic.symbol = highlightLine;
-                };
-                view.graphics.add(selectionGraphic);
-            }
-        }
-    
-        //Determine when to remove highligh graphics
-        view.popup.watch("visible", function(visible){
-            if (visible == false){
-                view.graphics.removeAll();
-            }
-        });
+
+
 
         //=============================
         //Function to enable drawing graphics
@@ -584,33 +310,6 @@ $(document).ready(function (){
             });
             console.log(JSON.stringify(newProject));
         }
-
-        //Click submit to add the new projects to the feature
-        var url = "https://services.arcgis.com/PLiuXYMBpMK5h36e/ArcGIS/rest/services/ProjectSystems/FeatureServer/0/applyEdits";
-
-        $("#submitbtn").on("click", function(e){
-            //Check to see if the user made any changes to the values
-            checkChanges(newProject);
-
-            $.post({
-                url: url,
-                data: {
-                    f: "json",
-                    adds: JSON.stringify(newProject)
-                },
-                dataType: "json",
-                success: (success) =>{
-                    console.log(success);
-                    alert("Proposed Project has successfully posted to the database!");
-                    view.graphics.removeAll();
-                    projects.refresh();
-                },
-                error: (error) =>{
-                    console.log(error);
-                    alert("An error occurred please try again");
-                }
-            })
-        });
 
 
         //=======================================
@@ -1090,67 +789,12 @@ $(document).ready(function (){
             return attributes;
         }
 
-        //===================================================================
-        //Function to check the change if any that the user made
-        function checkChanges(project){
-            var districtVal = project.attributes["DOTDDistrict"];
-            var parishVal = project.attributes["Parish"];
-            var controlSectionVal = project.attributes["ControlSection"];
-            var lrsVal = project.attributes["LRSID"];
-            var bLogmileVal = project.attributes["BeginLogmile"];
-            var eLogmileVal = project.attributes["EndLogmile"];
-
-            if (!(parishVal === $(".parishNum").val())){
-                project.attributes["Parish"] = $(".parishNum").val();
-            }
-
-            if (!(districtVal === $(".dotdDistrict").val())){
-                project.attributes["DOTDDistrict"] = $(".dotdDistrict").val();
-            }
-
-            if (!(controlSectionVal === $(".cs").val())){
-                project.attributes["ControlSection"] = $(".cs").val();
-            }
-
-            if (!(lrsVal === $(".lrsID").val())){
-                project.attributes["LRSID"] = $(".lrsID").val();
-            }
-
-            if (!(bLogmileVal === $(".bL").val())){
-                project.attributes["BeginLogmile"] = $(".bL").val();
-            }
-
-            if (!(eLogmileVal === $(".eL").val())){
-                project.attributes["EndLogmile"] = $(".eL").val();
-            }
-        }
-
-        //Clear the input boxes/select
-        $("#clearbtn").on("click", function(){
-            $(".dotdDistrict").val("");
-            $(".parishNum").val("");
-            $(".cs").val("");
-            $(".lrsID").val("");
-            $(".bL").val("");
-            $(".eL").val("");
-            $("#fedAids").val("");
-            $("#functClass").val("");
-            $("#cities option[value='']").attr("selected",true);
-            $("#rural").val("");
-            $(".local").css("display", "none");
-            $(".localValue").css("display", "none");
-            view.graphics.removeAll();
-        });
 
     });
 
     //========================================================================
     //jQuery functions when clicking buttons
 
-    //Close the panel after user is done looking at the information
-    $("#closebutton").on("click", function(e){
-        $("#panel").hide("slide");
-    });
 
     //Create a dialog box when click the info button
     //Create a jQuery UI dialog box
@@ -1177,59 +821,6 @@ $(document).ready(function (){
     //Click the about button to open the dialog
     $(".about").on("click", function(e){
         dialog.dialog("open");
-    });
-
-    //Hide the select options
-    $("#districtFilter").hide();
-    $("#senateFilter").hide();
-    $("#parishFilter").hide();
-    $("#houseFilter").hide();
-
-    //Show dropdown list based on checked box
-    $("#district").click(function(){
-        if ($(this).is(":checked")){
-            $("#districtFilter").show();
-            $("#senateFilter").hide();
-            $("#parishFilter").hide();
-            $("#houseFilter").hide();
-        }
-    });
-
-    $("#senateDistrict").click(function(){
-        if ($(this).is(":checked")){
-            $("#districtFilter").hide();
-            $("#senateFilter").show();
-            $("#parishFilter").hide();
-            $("#houseFilter").hide();
-        }
-    });
-
-    $("#parish").click(function(){
-        if ($(this).is(":checked")){
-            $("#districtFilter").hide();
-            $("#senateFilter").hide();
-            $("#parishFilter").show();
-            $("#houseFilter").hide();
-        }
-    });
-
-    $("#houseDistrict").click(function(){
-        if ($(this).is(":checked")){
-            $("#districtFilter").hide();
-            $("#senateFilter").hide();
-            $("#parishFilter").hide();
-            $("#houseFilter").show();
-        }
-    });
-
-    //Check to see if user entered a local LRSID
-    $(".lrsID").on("change", function(){
-        var idValue = $(".lrsID").val();
-        if (idValue.length > 12){
-            $(".local").css("display", "table-cell");
-            $(".localValue").css("display", "table-cell");
-            $(".functClass").css("display", "table-cell");
-        }
     });
 
     //Create a dialog box when click the help button
