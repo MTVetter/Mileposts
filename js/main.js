@@ -218,13 +218,15 @@ $(document).ready(function (){
                 var json = response.data;
                 var locations = json.locations[0].results[0];
                 var route = locations.routeId;
+                var split = route.split("_");
+                var routeNumber = split[1];
                 var measure = locations.measure;
                 var roundedMilepoint = Math.round(measure * 1000)/1000;
                 var rounded = Math.round(measure * 10)/ 10;
                 $("#route").text(route);
                 $("#milepoint").text(roundedMilepoint);
                 $("#milepost").text(rounded);
-                showPopup(lat, long, route, rounded, roundedMilepoint, point);
+                showPopup(lat, long, routeNumber, rounded, roundedMilepoint, point);
             });
 
 
