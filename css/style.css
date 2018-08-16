@@ -35,14 +35,6 @@ body{
 .esri-view-user-storage{
     order: -1;
 }
-.projectTable{
-    padding-right: 300px;
-}
-#panel{
-    position: relative;
-    z-index: 1;
-    order: -1;
-}
 #viewDiv{
     display: flex;
     flex: 2 1 auto;
@@ -74,95 +66,4 @@ body{
     overflow:auto;
     /*position: fixed;
     top: 15px;*/
-}
-#districtFilter, #parishFilter, #senateFilter, #houseFilter{
-    font-size: 12px;
-    color: #9C9C9C;
-    height: 32px;
-    padding:0 6px;
-    margin-bottom: 10px;
-    width:100%;
-    display: inline-block;
-    cursor:pointer;
-}
-#projectCheck input{
-    display: block;
-}
-.in{
-    padding-top: 5px;
-}
-.show{
-    padding-bottom: 3px;
-}
-.edit-button,
-.edit-button:enabled{
-  font-size: 14px;
-  height: 32px;
-  margin-top: 10px;
-  width: 100%;
-  background-color: transparent;
-  border: 1px solid #0079c1;
-  color: #0079c1;
-  cursor:pointer;
-}
-.edit-button:hover,
-.edit-button:focus{
-  background-color: #0079c1;
-  color: white;
-}
-.edit-button:disabled{
-    border: 2px solid red;
-    color: darkgray;
-    background-color: lightgrey;
-    cursor: not-allowed;
-}
-.local{
-    display: none;
-}
-.localValue{
-    display: none;
-}
-.panelBtn,
-.panelBtn:enabled{
-  font-size: 14px;
-  height: 32px;
-  margin-top: 10px;
-  width: 75%;
-  background-color: transparent;
-  border: 1px solid #0079c1;
-  color: #0079c1;
-  cursor:pointer;
-}
-.panelBtn:hover,
-.panelBtn:focus{
-  background-color: #0079c1;
-  color: white;
-}
-.panelBtn:disabled{
-    border: 2px solid red;
-    color: darkgray;
-    background-color: lightgrey;
-    cursor: not-allowed;
-}
-.panelHelpBtn,
-.panelHelpBtn:enabled{
-    font-size: 14px;
-    height: 32px;
-    width: 75%;
-    margin-top: 10px;
-    background-color: transparent;
-    border: 1px solid #db7093;
-    color: #db7093;
-    cursor: pointer;
-}
-.panelHelpBtn:hover,
-.panelHelpBtn:focus{
-    background-color: #db7093;
-    color: white;
-}
-.panelHelpBtn:disabled{
-    border: 2px solid red;
-    color: darkgray;
-    background-color: lightgray;
-    cursor: not-allowed;
 }
