@@ -177,8 +177,8 @@ $(document).ready(function (){
             coordinates.push(x);
             var y = event.mapPoint.y;
             coordinates.push(y);
-            var lat = Math.round(event.mapPoint.latitude * 10000)/10000;
-            var long = Math.round(event.mapPoint.longitude * 10000)/10000;
+            var lat = Math.round(event.mapPoint.latitude * 1000000)/1000000;
+            var long = Math.round(event.mapPoint.longitude * 1000000)/1000000;
             $("#latitude").text(lat);
             $("#longitude").text(long);
             createGraphic(coordinates, lat, long);
