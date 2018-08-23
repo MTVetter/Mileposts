@@ -63,11 +63,12 @@ $(document).ready(function (){
     
         //Add LRSID_Routes
         var routes = new FeatureLayer({
-            url: "https://giswebnew.dotd.la.gov/arcgis/rest/services/Transportation/State_LRS_Route_Networks/FeatureServer/0",
+            url: "https://giswebnew.dotd.la.gov/arcgis/rest/services/Transportation/State_LRS_Route_Networks/FeatureServer/1",
             outFields: ["*"],
-            title: "LRSID_Routes",
-            definitionExpression: "RouteID LIKE '%-%-1-%' OR RouteID LIKE '%-%-2-%'"
+            title: "StatewideRoutes",
+            definitionExpression: "RouteID LIKE '999_%_1_1_%' OR RouteID LIKE '999_%_2_2_%'"
         });
+        
 
         //Add the Mileposts
         var mileposts = new FeatureLayer({
@@ -125,11 +126,14 @@ $(document).ready(function (){
                 popupOpenOnSelect: false,
                 sources: [{
                     featureLayer: routes,
-                    displayField: "RouteID",
-                    searchFields: ["RouteID"],
-                    outFields: ["*"],
-                    name: "LRSID",
-                    zoomScale: 80000,
+                    displayField: "RouteNameFull",
+                    searchFields: ["RouteNameFull"],
+                    outFields: ["RouteNameFull"],
+                    filter: {
+                        where: "RouteID LIKE '999_%_1_1_%' OR RouteID LIKE '999_%_2_2_%'"
+                    },
+                    name: "Routes",
+                    zoomScale: 450000,
                     resultSymbol: {
                         type: "simple-line",
                         color: [255, 255, 25],
@@ -139,7 +143,7 @@ $(document).ready(function (){
                     featureLayer: parish,
                     outFields: ["*"],
                     name: "Parish",
-                    zoomScale: 80000,
+                    zoomScale: 500000,
                     resultSymbol: {
                         type: "simple-line",
                         color: [255, 255, 25],
@@ -237,8 +241,8 @@ $(document).ready(function (){
         //Create a popup window
         function showPopup(lat, long, route, rounded, measure, point){
             view.popup.open({
-                title: "Selected route is: " + route,
-                content: "Milepoint is " +measure+"<br>Milepost is "+rounded+"<br>Lat/Long is " +lat+", "+long,
+                title: "Selected route: " + route,
+                content: "Milepoint: " +measure+"<br>Milepost: "+rounded+"<br>Lat/Long: " +lat+", "+long,
                 location: point
             });
         }
