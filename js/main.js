@@ -127,7 +127,7 @@ $(document).ready(function (){
             //Search button
             var searchWidget = new Search({
                 view: view,
-                allPlaceholder: "Search for a LRSID...",
+                allPlaceholder: "Search for a Route...",
                 locationEnabled: false,
                 includeDefaultSources: false,
                 popupOpenOnSelect: false,
@@ -143,8 +143,8 @@ $(document).ready(function (){
                     zoomScale: 450000,
                     resultSymbol: {
                         type: "simple-line",
-                        color: [255, 255, 25],
-                        width: 5
+                        color: [197, 0, 255, 0.5],
+                        width: 3
                     }
                 }, {
                     featureLayer: parish,
@@ -161,7 +161,7 @@ $(document).ready(function (){
     
             var searchButton = new Expand({
                 expandIconClass: "esri-icon-search",
-                expandTooltip: "Search for a LRSID",
+                expandTooltip: "Search for a Route",
                 view: view,
                 content: searchWidget,
                 mode: "floating",
