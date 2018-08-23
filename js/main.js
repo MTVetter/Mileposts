@@ -98,6 +98,13 @@ $(document).ready(function (){
             //Layer list
             var layerList = new LayerList({
                 view: view,
+                listItemCreatedFunction: function(event){
+                    const item = event.item;
+                    item.panel = {
+                        content: "legend",
+                        open: true
+                    };
+                }
             });
     
     
