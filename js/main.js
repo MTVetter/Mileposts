@@ -264,8 +264,8 @@ $(document).ready(function (){
     //Create a jQuery UI dialog box
     var dialog = $("#dialog").dialog({
         autoOpen: false,
-        height: 350,
-        width: 250,
+        height: window.innerHeight - 350,
+        width: window.innerWidth - 400,
         modal: true,
         position:{
             my: "center center",
@@ -286,33 +286,5 @@ $(document).ready(function (){
     $(".about").on("click", function(e){
         dialog.dialog("open");
     });
-
-    //Create a dialog box when click the help button
-    //Create a jQuery UI dialog box
-    var helpDialog = $("#helpDialog").dialog({
-        autoOpen: false,
-        height: window.innerHeight - 100,
-        width: window.innerWidth - 400,
-        modal: true,
-        position:{
-            my: "center center",
-            at: "center center",
-            of: "#wrapper"
-        },
-        buttons:{
-            "Close": function(){
-                helpDialog.dialog("close");
-            }
-        },
-        close: function (){
-            console.log("Dialog has successfully closed");
-        }
-    });
-    
-    //Click the about button to open the dialog
-    $("#helpbtn").on("click", function(e){
-        helpDialog.dialog("open");
-    });
-
     
 })

@@ -31,29 +31,18 @@
 			<div id="viewDiv">
 				<div id="dialog" title="About the Application">
 					<p>This application was created by DOTD GIS in August of 2018.
-						<br>Mileposts are at one mile intervals if a post exists along the Interstates.
+						<br><br><strong>Mileposts</strong> are at one mile intervals if a post exists along the Interstates.
 						The data was derived from video log data. Locations of mileposts are subject to
 						inaccuracies and are not necessarily the actual mileage along the route. DOTD
 						does not guarantee the accuracy of this data and should be used only as a reference.
 						The data is from 2012-2014 and was digitized into GIS in 2017.
-					</p>
-				</div>
-				<div id="helpDialog" title="Help Adding a Proposed Project">
-					<p>This is a step by step guide to help add a prosed project.
-						<br><br>The side panel allows you to enter information about the project before drawing it.
-						<br>You can also allow the system to automatically populate the majority of the fields for you.
-						<br><br>When drawing the project, you need to be zoomed in to verify that you're drawing on the roads.
-						<br>A zoom level like the following screenshot should be good:<br>
-						<img src="img/drawingZoom.PNG" class="help"></br>
-						<br><br>After drawing the project, you will see a confirmation box like below:
-						<img src="img/confirmRoute.PNG" class="help">
-						<br>This box will only display if you put a project on a non-divided roadway.
-						<br>Click OK if you want to use the route mentioned in the box; otherwise click Cancel.</br>
-						<br>After clicking OK or Cancel, you'll notice that the attribute fields have been filled in.
-						<br>You can change any of the values in the box or you can click Clear Fields to start all over.
-						<br><br>Once you have the correct information in the attribute boxes, click Submit.
-						<br>If the project was successfully submitted to the database, you'll see this alert:
-						<img src="img/success.PNG" class="help">
+						<br><br>DOTD maintains two LRS Route Networks. Everything in this application will be
+						referenced from DOTD's new Linear Referencing Method. This new LRM is called <strong>StatewideRoutes</strong>.
+						StatewideRoutes is the foundation for the department's enterprise GIS. A route is described
+						within the system from beginning to end. An example would be I-10 which spans from Texas to
+						Mississippi. So milepoint 0 of I-10 will be at the Texas stateline.
+						<br><br><strong>Milepoints</strong> are derived from StatewideRoutes. Milepoints are calculated for every
+						thousandth of a mile. On divided roadways, the milepoints on each side will not be the same.
 					</p>
 				</div>
 			</div>
